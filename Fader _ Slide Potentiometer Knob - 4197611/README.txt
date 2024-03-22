@@ -1,0 +1,1 @@
+Fader / Slide Potentiometer Knob by aithorn on Thingiverse: https://www.thingiverse.com/thing:4197611
