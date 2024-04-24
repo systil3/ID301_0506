@@ -1,35 +1,47 @@
 import serial
 import audioplayer
 import sys
-import os
-from PyQt5.QtCore import QUrl
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QCheckBox
-from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtCore import QThread, pyqtSignal
 
-ser = serial.Serial()  # 시리얼을 연결한다.
-ser.port = 'COM3'  # 아두이노가 연결된 포트
-ser.baudrate = 9600  # baudrate를 지정해줄 수 있다.
-ser.timeout = 0.1  # 시리얼에 데이터를 불러올 때 지정하는 딜레이
-ser.open()
+class SerialThread(QThread):
+    signal = pyqtSignal(str)
 
-data3 = []
-try:
-    app = QApplication(sys.argv)
-    audioPlayer = audioplayer.AudioPlayer()
-    audioPlayer.show()
-except Exception as e:
-    print(e)
-    exit(-1)
+    def __init__(self, port, baudrate):
+        super().__init__()
+        self.ser = serial.Serial()
+        self.ser.port = port
+        self.ser.baudrate = baudrate
+        self.ser.timeout = 0.1
 
-while True:
-    data = ser.readline().decode()
-    if data != '':
-        data = data.split("/")[0]
-        audioPlayer.readSignal(data)
+    def run(self):
+        self.ser.open()
+        data_cnt = 0
+        while True:
+            data = self.ser.readline().decode()
+            if data != '':
+                if not (data.split("/")[0] != "analogRead" or data.split("/")[0] != "digitalRead"):
+                    continue
+                self.signal.emit(data)
 
-    data3.append(data)
-    print("read : " + data)
-    if len(data3) > 10000:
-        break
+            data_cnt += 1
+            print("read : " + data)
+            if data_cnt > 10000:
+                break
+        self.ser.close()
 
-ser.close()
+if __name__ == "__main__":
+    try:
+        app = QApplication(sys.argv)
+        audioPlayer = audioplayer.AudioPlayer()
+        audioPlayer.show()
+
+        serial_thread = SerialThread('COM4', 9600)
+        serial_thread.signal.connect(audioPlayer.readSignal)
+        serial_thread.start()
+
+        sys.exit(app.exec_())
+
+    except Exception as e:
+        print(e)
+        exit(-1)
