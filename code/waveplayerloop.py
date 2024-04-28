@@ -15,13 +15,6 @@ EFFECT_GATED = 3
 EFFECT_DOWNSAMPLE = 4
 NUM_OF_EFFECTS = 5
 
-pyaudio_to_numpy_type = {
-    pyaudio.paFloat32: np.float32,
-    pyaudio.paInt32: np.int32,
-    pyaudio.paInt16: np.int16,
-    pyaudio.paInt8: np.int8,
-}
-
 default_block_sizes = {
     np.float32: 8,
     np.int32: 8,
@@ -32,7 +25,7 @@ default_block_sizes = {
 class WavePlayerLoop(threading.Thread):
     CHUNK = 1024
 
-    def __init__(self, filepath, loop=True):
+    def __init__(self, filepath):
         """
         Initialize `WavePlayerLoop` class.
         PARAM:
@@ -42,7 +35,7 @@ class WavePlayerLoop(threading.Thread):
         """
         super(WavePlayerLoop, self).__init__()
         self.filepath = os.path.abspath(filepath)
-        self.loop = loop
+        self.stop_event = threading.Event()
 
         self.player = pyaudio.PyAudio()
         self.wf = wave.open(self.filepath, 'rb')
@@ -118,6 +111,9 @@ class WavePlayerLoop(threading.Thread):
         self.writeEffectBuffer(effect, time_pos, chunk_num)
 
     def changeVolume(self, volume):
+        """
+        modify volume in logarithmic scale
+        """
         self.multiplier = pow(2, (sqrt(sqrt(sqrt(volume))) * 192 - 192) / 6)
 
     def stretch(self, bpm):
@@ -139,6 +135,9 @@ class WavePlayerLoop(threading.Thread):
             self.writeEffectBuffer(effect, time_pos, chunk_num)
 
     def run_stretch(self, bpm):
+        """
+        stretching in multithread
+        """
         t = threading.Thread(target=lambda: self.stretch(bpm))
         t.start()
 
@@ -169,7 +168,7 @@ class WavePlayerLoop(threading.Thread):
 
             time_interval = 24
 
-            while self.loop:
+            while not self.stop_event.is_set():
                 data_bytes = self.setDataBytes()
                 n = len(data_bytes)
                 pos = 0
@@ -199,11 +198,12 @@ class WavePlayerLoop(threading.Thread):
         Start playback(with multithread).
         """
         thread = threading.Thread(target=self.run)
+        self.stop_event.clear() # to be fixed later. todo
         thread.start()
 
-    def stop(self):
+    def stop_playback(self):
         """
         Stop playback.
         """
-        self.loop = False
+        self.stop_event.set()
 

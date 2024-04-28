@@ -55,7 +55,7 @@ class Window(QtWidgets.QMainWindow):
         def switch_playback():
             if self.playButton.text() == "Stop":
                 self.playButton.setText("Play")
-                self.loop.stop()
+                self.loop.stop_playback()
             else:
                 self.playButton.setText("Stop")
                 self.loop.start_playback()

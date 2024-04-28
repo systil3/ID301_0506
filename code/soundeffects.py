@@ -117,6 +117,10 @@ def detectBPM(audio, np_type):
     return stretched_audio'''
 
 def stretchFromBPM(audio, np_type, original_bpm, modified_bpm, nfft = 2048):
+    """
+    open-source algorithm in https://github.com/gaganbahga/time_stretch
+    """
+
     try:
         np_sound = np.frombuffer(audio, dtype=np_type).astype(
             np.float16 if np_type in (np.int16, np.float16)
