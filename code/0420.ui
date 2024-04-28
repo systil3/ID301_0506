@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>676</width>
+    <height>613</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="button1">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>410</y>
+      <x>210</x>
+      <y>400</y>
       <width>41</width>
       <height>28</height>
      </rect>
@@ -30,8 +30,8 @@
    <widget class="QPushButton" name="button2">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>410</y>
+      <x>260</x>
+      <y>400</y>
       <width>41</width>
       <height>28</height>
      </rect>
@@ -43,8 +43,8 @@
    <widget class="QPushButton" name="button3">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>410</y>
+      <x>310</x>
+      <y>400</y>
       <width>41</width>
       <height>28</height>
      </rect>
@@ -56,8 +56,8 @@
    <widget class="QPushButton" name="button4">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>410</y>
+      <x>360</x>
+      <y>400</y>
       <width>41</width>
       <height>28</height>
      </rect>
@@ -69,8 +69,8 @@
    <widget class="QPushButton" name="button5">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>410</y>
+      <x>410</x>
+      <y>400</y>
       <width>41</width>
       <height>28</height>
      </rect>
@@ -82,8 +82,8 @@
    <widget class="QPushButton" name="button6">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>410</y>
+      <x>460</x>
+      <y>400</y>
       <width>41</width>
       <height>28</height>
      </rect>
@@ -95,8 +95,8 @@
    <widget class="QPushButton" name="button7">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>410</y>
+      <x>510</x>
+      <y>400</y>
       <width>41</width>
       <height>28</height>
      </rect>
@@ -108,8 +108,8 @@
    <widget class="QPushButton" name="button0">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>410</y>
+      <x>160</x>
+      <y>400</y>
       <width>41</width>
       <height>28</height>
      </rect>
@@ -121,8 +121,8 @@
    <widget class="QSlider" name="slider1">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>160</y>
+      <x>220</x>
+      <y>150</y>
       <width>21</width>
       <height>241</height>
      </rect>
@@ -140,8 +140,8 @@
    <widget class="QSlider" name="slider2">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>160</y>
+      <x>270</x>
+      <y>150</y>
       <width>21</width>
       <height>241</height>
      </rect>
@@ -159,8 +159,8 @@
    <widget class="QSlider" name="slider3">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>160</y>
+      <x>320</x>
+      <y>150</y>
       <width>21</width>
       <height>241</height>
      </rect>
@@ -178,8 +178,8 @@
    <widget class="QSlider" name="slider4">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>160</y>
+      <x>370</x>
+      <y>150</y>
       <width>21</width>
       <height>241</height>
      </rect>
@@ -197,8 +197,8 @@
    <widget class="QSlider" name="slider5">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>160</y>
+      <x>420</x>
+      <y>150</y>
       <width>21</width>
       <height>241</height>
      </rect>
@@ -216,8 +216,8 @@
    <widget class="QSlider" name="slider6">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>160</y>
+      <x>470</x>
+      <y>150</y>
       <width>21</width>
       <height>241</height>
      </rect>
@@ -235,8 +235,8 @@
    <widget class="QSlider" name="slider7">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>160</y>
+      <x>520</x>
+      <y>150</y>
       <width>21</width>
       <height>241</height>
      </rect>
@@ -254,8 +254,8 @@
    <widget class="QSlider" name="slider0">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>160</y>
+      <x>170</x>
+      <y>150</y>
       <width>21</width>
       <height>241</height>
      </rect>
@@ -270,8 +270,8 @@
    <widget class="QPushButton" name="playButton">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>100</y>
+      <x>100</x>
+      <y>90</y>
       <width>91</width>
       <height>28</height>
      </rect>
@@ -283,8 +283,8 @@
    <widget class="QLCDNumber" name="effectLCD0">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>450</y>
+      <x>160</x>
+      <y>440</y>
       <width>41</width>
       <height>23</height>
      </rect>
@@ -299,8 +299,8 @@
    <widget class="QLCDNumber" name="effectLCD1">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>450</y>
+      <x>210</x>
+      <y>440</y>
       <width>41</width>
       <height>23</height>
      </rect>
@@ -315,8 +315,8 @@
    <widget class="QLCDNumber" name="effectLCD2">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>450</y>
+      <x>260</x>
+      <y>440</y>
       <width>41</width>
       <height>23</height>
      </rect>
@@ -331,8 +331,8 @@
    <widget class="QLCDNumber" name="effectLCD3">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>450</y>
+      <x>310</x>
+      <y>440</y>
       <width>41</width>
       <height>23</height>
      </rect>
@@ -347,8 +347,8 @@
    <widget class="QLCDNumber" name="effectLCD4">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>450</y>
+      <x>360</x>
+      <y>440</y>
       <width>41</width>
       <height>23</height>
      </rect>
@@ -363,8 +363,8 @@
    <widget class="QLCDNumber" name="effectLCD6">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>450</y>
+      <x>460</x>
+      <y>440</y>
       <width>41</width>
       <height>23</height>
      </rect>
@@ -379,8 +379,8 @@
    <widget class="QLCDNumber" name="effectLCD7">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>450</y>
+      <x>510</x>
+      <y>440</y>
       <width>41</width>
       <height>23</height>
      </rect>
@@ -395,8 +395,8 @@
    <widget class="QLCDNumber" name="effectLCD5">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>450</y>
+      <x>410</x>
+      <y>440</y>
       <width>41</width>
       <height>23</height>
      </rect>
@@ -414,8 +414,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>480</y>
+      <x>310</x>
+      <y>470</y>
       <width>41</width>
       <height>28</height>
      </rect>
@@ -430,8 +430,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>480</y>
+      <x>160</x>
+      <y>470</y>
       <width>41</width>
       <height>28</height>
      </rect>
@@ -446,8 +446,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>480</y>
+      <x>510</x>
+      <y>470</y>
       <width>41</width>
       <height>28</height>
      </rect>
@@ -462,8 +462,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>480</y>
+      <x>460</x>
+      <y>470</y>
       <width>41</width>
       <height>28</height>
      </rect>
@@ -478,8 +478,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>480</y>
+      <x>260</x>
+      <y>470</y>
       <width>41</width>
       <height>28</height>
      </rect>
@@ -494,8 +494,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>480</y>
+      <x>210</x>
+      <y>470</y>
       <width>41</width>
       <height>28</height>
      </rect>
@@ -510,8 +510,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>480</y>
+      <x>410</x>
+      <y>470</y>
       <width>41</width>
       <height>28</height>
      </rect>
@@ -526,8 +526,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>480</y>
+      <x>360</x>
+      <y>470</y>
       <width>41</width>
       <height>28</height>
      </rect>
@@ -536,30 +536,11 @@
      <string>5</string>
     </property>
    </widget>
-   <widget class="QDial" name="tapeDial">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>160</y>
-      <width>101</width>
-      <height>121</height>
-     </rect>
-    </property>
-    <property name="minimum">
-     <number>50</number>
-    </property>
-    <property name="maximum">
-     <number>150</number>
-    </property>
-    <property name="value">
-     <number>100</number>
-    </property>
-   </widget>
    <widget class="QSlider" name="volumeSlider">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>160</y>
+      <x>100</x>
+      <y>150</y>
       <width>21</width>
       <height>341</height>
      </rect>
@@ -574,13 +555,36 @@
      <enum>Qt::Vertical</enum>
     </property>
    </widget>
+   <widget class="QPushButton" name="bpmChangeButton">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>90</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Set</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="bpmText">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>90</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>676</width>
      <height>26</height>
     </rect>
    </property>

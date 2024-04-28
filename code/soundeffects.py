@@ -1,6 +1,11 @@
 from pydub import AudioSegment
 import numpy as np
-import struct
+import librosa
+import pyrubberband as pyrb
+import fractions
+
+DEFAULT_SAMPLE_RATE = 44100
+PRINT_STATE = True
 
 def byte_string_to_binary_array(byte_string):
     binary_array = []
@@ -63,27 +68,6 @@ def downsampleAudio(audio, np_type, fraction=8):
     ret = downsampled_audio.tobytes()
     return ret
 
-'''def downsampleAudio(audio, target_sample_rate):
-    # Get the audio data as a numpy array
-    audio_data = np.array(audio.get_array_of_samples())
-
-    # Resample the audio data
-    current_sample_rate = audio.frame_rate
-    ratio = current_sample_rate / target_sample_rate
-    new_length = int(len(audio_data) / ratio)
-    new_audio_data = np.interp(np.linspace(0, len(audio_data) - 1, new_length),
-                               np.arange(len(audio_data)), audio_data).astype(np.int16)
-
-    # Create a new AudioSegment with the downsampled data
-    downsampled_audio = AudioSegment(
-        new_audio_data.tobytes(),
-        frame_rate=target_sample_rate,
-        sample_width=audio.sample_width,
-        channels=audio.channels
-    )
-
-    return downsampled_audio'''
-
 def tape_effect(input_audio, wow_factor=0.1, flutter_factor=0.1, saturation_factor=0.1, noise_factor=0.1):
     # Simulate wow and flutter by modulating the playback speed
     wow = np.random.normal(1, wow_factor, len(input_audio))
@@ -99,3 +83,77 @@ def tape_effect(input_audio, wow_factor=0.1, flutter_factor=0.1, saturation_fact
     output_audio += noise
 
     return output_audio
+
+#-------------------------------------- stretching section ----------------------------------------------
+
+def detectBPM(audio, np_type):
+    np_sound = np.frombuffer(audio, dtype=np_type).astype(
+        np.float16 if np_type in (np.int16, np.float16)
+        else np.float32
+    )  # Change the dtype to float
+    tempo, beat_frames = librosa.beat.beat_track(y=np_sound, sr=DEFAULT_SAMPLE_RATE)
+    if tempo < 100:
+        if PRINT_STATE:
+            print(f'Estimated tempo: {round(tempo)} or {round(tempo * 2)} bpm')
+            tempo *= 2 #to be fixed. todo
+    else:
+        if PRINT_STATE:
+            print(f'Estimated tempo: {round(tempo)} bpm')
+    return tempo
+
+'''def stretchFromBPM(audio, np_type, original_bpm, modified_bpm):
+    # Convert audio bytes to a NumPy array
+    np_sound = np.frombuffer(audio, dtype=np_type).astype(
+        np.float32
+    ) #pyrubberband only support over 32bit datatype
+
+    # Calculate the stretch factor
+    stretch_factor = modified_bpm / original_bpm
+
+    # Stretch or compress the audio
+    stretched_audio = pyrb.time_stretch(np_sound, DEFAULT_SAMPLE_RATE, stretch_factor).astype(np_type)
+    assert len(audio) == len(stretched_audio)
+
+    return stretched_audio'''
+
+def stretchFromBPM(audio, np_type, original_bpm, modified_bpm, nfft = 2048):
+    try:
+        np_sound = np.frombuffer(audio, dtype=np_type).astype(
+            np.float16 if np_type in (np.int16, np.float16)
+            else np.float32
+        )
+        factor = modified_bpm / original_bpm
+        print(factor)
+        '''
+        stretch an audio sequence by a factor using FFT of size nfft converting to frequency domain
+        :param x: np.ndarray, audio array in PCM float32 format
+        :param factor: float, stretching or shrinking factor, depending on if its > or < 1 respectively
+        :return: np.ndarray, time stretched audio
+        '''
+        stft = librosa.core.stft(np_sound, n_fft=nfft).transpose()  # i prefer time-major fashion, so transpose
+        stft_cols = stft.shape[1]
+
+        times = np.arange(0, stft.shape[0], factor)  # times at which new FFT to be calculated
+        hop = nfft/4                                 # frame shift
+        stft_new = np.zeros((len(times), stft_cols), dtype=np.complex_)
+        phase_adv = (2 * np.pi * hop * np.arange(0, stft_cols))/ nfft
+        phase = np.angle(stft[0])
+
+        stft = np.concatenate( (stft, np.zeros((1, stft_cols))), axis=0)
+
+        for i, time in enumerate(times):
+            left_frame = int(np.floor(time))
+            local_frames = stft[[left_frame, left_frame + 1], :]
+            right_wt = time - np.floor(time)                        # weight on right frame out of 2
+            local_mag = (1 - right_wt) * np.absolute(local_frames[0, :]) + right_wt * np.absolute(local_frames[1, :])
+            local_dphi = np.angle(local_frames[1, :]) - np.angle(local_frames[0, :]) - phase_adv
+            local_dphi = local_dphi - 2 * np.pi * np.floor(local_dphi/(2 * np.pi))
+            stft_new[i, :] =  local_mag * np.exp(phase*1j)
+            phase += local_dphi + phase_adv
+
+        stretched_audio = librosa.core.istft(stft_new.transpose()).astype(np_type).tobytes()
+        print(type(audio), len(audio), type(stretched_audio), len(stretched_audio))
+        return stretched_audio
+
+    except Exception as e:
+        print(f"error:{e}")

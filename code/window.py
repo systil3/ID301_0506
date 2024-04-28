@@ -52,8 +52,14 @@ class Window(QtWidgets.QMainWindow):
 
         self.loop = waveplayerloop.WavePlayerLoop("test.wav")
 
-        run = partial(self.loop.start_playback)
-        self.playButton.clicked.connect(run)
+        def switch_playback():
+            if self.playButton.text() == "Stop":
+                self.playButton.setText("Play")
+                self.loop.stop()
+            else:
+                self.playButton.setText("Stop")
+                self.loop.start_playback()
+        self.playButton.clicked.connect(switch_playback)
 
         for i, b in enumerate(self.buttons):
             te = partial(self.loop.toggleEnable, i)
@@ -80,15 +86,24 @@ class Window(QtWidgets.QMainWindow):
             ce = partial(changeEffect, i, el)
             lb.clicked.connect(ce)
 
-        def tapeEffect():
+        '''def tapeEffect():
             speed = self.tapeDial.value() / 100
             pass
-        self.tapeDial.valueChanged.connect(tapeEffect)
+        self.tapeDial.valueChanged.connect(tapeEffect)'''
 
         def changeVolume():
             value = self.volumeSlider.value() / 25
             self.loop.changeVolume(value)
         self.volumeSlider.valueChanged.connect(changeVolume)
+
+        def setBPM():
+            try:
+                bpm = int(self.bpmText.text())
+                self.loop.run_stretch(bpm)
+            except Exception as e:
+                print(f"error : {e}")
+        self.bpmChangeButton.clicked.connect(setBPM)
+
     def initUI(self):
         # Load the UI file
         uic.loadUi('0420.ui', self)
