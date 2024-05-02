@@ -207,3 +207,18 @@ class WavePlayerLoop(threading.Thread):
         """
         self.stop_event.set()
 
+    def playBass(self):
+        """
+        temporary func to play bass sound
+        """
+        wfb = wave.open('bass.wav', 'rb')
+        stream = self.player.open(format=self.player.get_format_from_width(wfb.getsampwidth()),
+                                  channels=wfb.getnchannels(),
+                                  rate=wfb.getframerate(),
+                                  output=True)
+        data = wfb.readframes(wfb.getframerate())
+        stream.write(data)
+
+    def start_playBass(self):
+        bthread = threading.Thread(target=self.playBass())
+        bthread.start()

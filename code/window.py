@@ -104,6 +104,9 @@ class Window(QtWidgets.QMainWindow):
                 print(f"error : {e}")
         self.bpmChangeButton.clicked.connect(setBPM)
 
+        #to be deleted. todo
+        self.bassButton.clicked.connect(self.loop.playBass)
+
     def initUI(self):
         # Load the UI file
         uic.loadUi('0420.ui', self)
