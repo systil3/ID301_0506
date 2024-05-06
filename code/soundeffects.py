@@ -98,23 +98,8 @@ def detectBPM(audio, np_type):
             tempo *= 2 #to be fixed. todo
     else:
         if PRINT_STATE:
-            print(f'Estimated tempo: {round(tempo)} bpm')
-    return tempo
-
-'''def stretchFromBPM(audio, np_type, original_bpm, modified_bpm):
-    # Convert audio bytes to a NumPy array
-    np_sound = np.frombuffer(audio, dtype=np_type).astype(
-        np.float32
-    ) #pyrubberband only support over 32bit datatype
-
-    # Calculate the stretch factor
-    stretch_factor = modified_bpm / original_bpm
-
-    # Stretch or compress the audio
-    stretched_audio = pyrb.time_stretch(np_sound, DEFAULT_SAMPLE_RATE, stretch_factor).astype(np_type)
-    assert len(audio) == len(stretched_audio)
-
-    return stretched_audio'''
+            print(f'Estimated tempo: {tempo[0]} bpm')
+    return tempo[0]
 
 def stretchFromBPM(audio, np_type, original_bpm, modified_bpm, nfft = 2048):
     """

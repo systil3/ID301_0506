@@ -98,7 +98,7 @@ class WavePlayerLoop(threading.Thread):
                 self.effect_buffer[time_pos] = downsampleAudio(self.chunks[chunk_num], self.audio_type)
 
     def changePattern(self, time_pos, chunk_num):
-        print(time_pos)
+        #print(time_pos)
         assert 0 <= chunk_num < 8
         self.patterns[time_pos] = chunk_num
         effect = self.effects[time_pos]
