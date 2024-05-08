@@ -54,6 +54,7 @@ class WavePlayerLoop(threading.Thread):
 
         self.total_frames = self.wf.getnframes()
         self.frame_rate = self.wf.getframerate()
+        self.play_position = 0
 
         #init chunks
         self.chunk_length = self.total_frames // 8
@@ -173,6 +174,7 @@ class WavePlayerLoop(threading.Thread):
                 n = len(data_bytes)
                 pos = 0
                 while pos < n:
+                    self.play_position = pos * 8 // n
                     interval = data_bytes[pos:pos + time_interval]
 
                     audio_samples = np.frombuffer(interval, dtype=np.int16)  # Assuming 16-bit audio
