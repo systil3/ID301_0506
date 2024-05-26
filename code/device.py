@@ -2,8 +2,10 @@ import time
 
 import Adafruit_MCP3008
 import spidev
+from RPi import GPIO
 
-class SpiReader():
+
+class SpiReader:
     def __init__(self, device):
         self.spi = spidev.SpiDev()
         self.spi.open(0, device)
@@ -28,3 +30,16 @@ class SpiReader():
     def close(self):
         self.spi.close()
 
+class Button():
+    def __init__(self, pin, callback):
+        self.prev_state = True
+        self.curr_state = True
+        self.pin = pin
+        self.callback = callback
+
+    def check_pressed(self):
+        self.curr_state = GPIO.input(self.pin)
+        if self.curr_state == False and self.prev_state == True:
+            #print("pressed")
+            self.callback()
+        self.prev_state = self.curr_state
